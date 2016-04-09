@@ -19,7 +19,7 @@ namespace Pilgrim.Controller
 
         override public void OnHold(float delta)
         {
-            Vector3 move = m_Manager.GetLookDir2() * m_WalkSpeed * Time.deltaTime;
+            Vector3 move = m_Manager.GetLookDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
             m_Manager.Move(move);
         }
 

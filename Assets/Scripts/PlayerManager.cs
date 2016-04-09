@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     private CharacterController m_CharacterController;
     [SerializeField] private PlayerControllerBase m_controller;
     [SerializeField] private MouseLook m_MouseLook;
+    [SerializeField] private float m_WalkSpeed = 2.0f;
 
     public float m_ClickSensitivity = 0.2f;
     private void Start()
@@ -62,18 +63,18 @@ public class PlayerManager : MonoBehaviour
         m_MouseLook.LookRotation(transform, m_Camera.transform);
     }
 
-    public Quaternion GetLookDir()
-    {
-        return m_Camera.transform.rotation;
-    }
-
-    public Vector3 GetLookDir2()
+    public Vector3 GetLookDir()
     {
         return transform.forward;
     }
 
-    public void Move(Vector3 motion)
+    public float getWalkSpeed()
     {
-        m_CharacterController.Move(motion);
+        return m_WalkSpeed;
+    }
+
+    public void Move(Vector3 MotionVector)
+    {
+        m_CharacterController.Move(MotionVector);
     }
 }
