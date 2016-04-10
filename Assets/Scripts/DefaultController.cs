@@ -33,12 +33,13 @@ namespace Pilgrim.Controller
         override public void OnHover(RaycastHit HitInfo)
         {
             m_LastHit = HitInfo.collider.gameObject;
-            GuiOutput.DisplayContextMessage("HOVERING MAH LAZERS");
+            GuiOutput.DisplayDebugDistanceMessage("" + HitInfo.distance);
         }
 
         override public void OnHoverOff()
         {
             m_LastHit = null;
+            GuiOutput.ClearDebugDistanceMessage();
             GuiOutput.ClearContextMessage();
         }
     }

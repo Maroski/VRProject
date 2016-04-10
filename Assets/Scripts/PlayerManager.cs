@@ -7,7 +7,6 @@ using UnityStandardAssets.Characters.FirstPerson;
 [RequireComponent(typeof (CharacterController))]
 public class PlayerManager : MonoBehaviour
 {
-    //private GuiOutput m_hud;
     private Camera m_Camera;
     private bool m_MouseDown;
     private float m_HoldTime;
@@ -22,8 +21,6 @@ public class PlayerManager : MonoBehaviour
     public float m_ClickSensitivity = 0.2f;
     private void Start()
     {
-        //m_hud = GetComponent<GuiOutput>();
-        //Debug.Log(m_hud);
         m_controller = new DefaultController(this);
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
