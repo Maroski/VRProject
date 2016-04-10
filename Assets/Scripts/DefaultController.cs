@@ -5,7 +5,7 @@ namespace Pilgrim.Controller
 {
     public class DefaultController : PlayerControllerBase
     {
-        [SerializeField] float m_WalkSpeed = 1.0f; // 1 unit per second
+        private GameObject m_LastHit;
         private PlayerManager m_Manager;
         public DefaultController(PlayerManager manager)
         {
@@ -14,18 +14,36 @@ namespace Pilgrim.Controller
 
         override public void OnClick()
         {
-            Debug.Log("OnClick");
+            if(m_LastHit != null)
+            {
+                Teacher SkillTeacher = m_LastHit.GetComponent<Teacher>();
+                if (SkillTeacher != null)
+                {
+                    SkillTeacher.TeachAbility(m_Manager);
+                }
+            }
         }
 
         override public void OnHold(float delta)
         {
-            Vector3 move = m_Manager.GetLookDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
+            Vector3 move = m_Manager.GetMoveDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
             m_Manager.Move(move);
         }
 
         override public void OnRelease(float delta)
         {
             Debug.Log("OnRelease");
+        }
+
+
+        override public void OnHover(RaycastHit HitInfo)
+        {
+            m_LastHit = HitInfo.collider.gameObject;
+        }
+
+        override public void OnHoverOff()
+        {
+            m_LastHit = null;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Pilgrim.Controller;
+using Pilgrim.EnumTypes;
 using UnityStandardAssets.Characters.FirstPerson;
 
 [RequireComponent(typeof (CharacterController))]
@@ -9,10 +10,13 @@ public class PlayerManager : MonoBehaviour
     private Camera m_Camera;
     private bool m_MouseDown;
     private float m_HoldTime;
+    private bool m_WasHovering;
     private CharacterController m_CharacterController;
     [SerializeField] private PlayerControllerBase m_controller;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
+
+    bool[] m_SkillList;
 
     public float m_ClickSensitivity = 0.2f;
     private void Start()
@@ -20,8 +24,11 @@ public class PlayerManager : MonoBehaviour
         m_controller = new DefaultController(this);
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
-        Debug.Log(transform);
-        Debug.Log(m_Camera.transform);
+        m_SkillList = new bool[Enum.GetNames(typeof(EAbility)).Length];
+        for(int i = 0; i < m_SkillList.Length; i++)
+        {
+            m_SkillList[i] = false;
+        }
 
         m_MouseLook.Init(transform, m_Camera.transform);
     }
@@ -29,6 +36,19 @@ public class PlayerManager : MonoBehaviour
     private void Update()
     {
         RotateView();
+
+        RaycastHit HitInfo;
+        if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f))
+        {
+            m_WasHovering = true;
+            m_controller.OnHover(HitInfo);
+        }
+        else if (m_WasHovering)
+        {
+            m_WasHovering = false;
+            m_controller.OnHoverOff();
+        }
+
         if (!m_MouseDown)
         {
             m_MouseDown = Input.GetMouseButtonDown(0);
@@ -65,9 +85,14 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 GetLookDir()
     {
-        return transform.forward;
+        return m_Camera.transform.forward;
     }
 
+    public Vector3 GetMoveDir()
+    {
+        return transform.forward;
+    }
+    
     public float getWalkSpeed()
     {
         return m_WalkSpeed;
@@ -76,5 +101,19 @@ public class PlayerManager : MonoBehaviour
     public void Move(Vector3 MotionVector)
     {
         m_CharacterController.Move(MotionVector);
+    }
+
+    public void LearnSkill(EAbility skill)
+    {
+        int skillID = (int)skill;
+        if (m_SkillList[skillID])
+        {
+            Debug.Log(String.Format("You have learnt {0} already", skill));
+        }
+        else
+        {
+            Debug.Log(String.Format("YOU LEARNT {0}", skill));
+            m_SkillList[skillID] = true;
+        }
     }
 }
