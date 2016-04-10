@@ -11,8 +11,9 @@ public class PlayerManager : MonoBehaviour
     private bool m_MouseDown;
     private float m_HoldTime;
     private bool m_WasHovering;
+    private PlayerControllerBase m_NewController;
+    private PlayerControllerBase m_controller;
     private CharacterController m_CharacterController;
-    [SerializeField] private PlayerControllerBase m_controller;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
 
@@ -35,6 +36,12 @@ public class PlayerManager : MonoBehaviour
 
     private void Update()
     {
+        // Context switch was requested
+        if (m_NewController != null)
+        {
+            m_controller = m_NewController;
+            m_NewController = null;
+        }
         RotateView();
 
         // TODO: Determine a better way to do gravity
@@ -117,5 +124,10 @@ public class PlayerManager : MonoBehaviour
             Debug.Log(String.Format("YOU LEARNT {0}", skill));
             m_SkillList[skillID] = true;
         }
+    }
+
+    public void ChangeContext(PlayerControllerBase newController)
+    {
+        m_NewController = newController;
     }
 }

@@ -8,17 +8,16 @@ namespace Pilgrim.Controller
         private GameObject m_LastHit;
         public DefaultController(PlayerManager manager) : base (manager)
         {
-            m_Manager = manager;
         }
 
         override public void OnClick()
         {
             if(m_LastHit != null)
             {
-                Teacher SkillTeacher = m_LastHit.GetComponent<Teacher>();
-                if (SkillTeacher != null)
+                Interactable interactor = m_LastHit.GetComponent<Interactable>();
+                if (interactor != null)
                 {
-                    SkillTeacher.TeachAbility(m_Manager);
+                    interactor.Respond(m_Manager);
                 }
             }
         }
