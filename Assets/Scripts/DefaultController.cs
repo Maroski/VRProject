@@ -24,18 +24,21 @@ namespace Pilgrim.Controller
 
         override public void OnHold(float delta)
         {
+
             Vector3 displacement = m_Manager.GetMoveDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
             m_Manager.Move(displacement);
         }
-
-        override public void OnHover(RaycastHit HitInfo)
+        
+        override public void OnTargetChange(RaycastHit? HitInfo)
         {
-            m_LastHit = HitInfo.collider.gameObject;
-        }
-
-        override public void OnHoverOff()
-        {
-            m_LastHit = null;
+            if(HitInfo != null)
+            {
+                m_LastHit = ((RaycastHit) HitInfo).collider.gameObject;
+            }
+            else
+            {
+                m_LastHit = null;
+            }
         }
     }
 }

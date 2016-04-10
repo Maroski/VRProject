@@ -13,13 +13,13 @@ namespace Pilgrim.Controller
             m_PushObject = pushObject;
         }
 
-        override public void OnHold(float delta)
+        override public void OnHover(float delta)
         {
             Rigidbody mass = m_PushObject.GetComponent<Rigidbody>();
             mass.AddForce(new Vector3(0f, 10f, 0f));
         }
 
-        override public void OnClick()
+        override public void OnTargetChange(RaycastHit? NewTarget)
         {
             m_Manager.ChangeContext(new DefaultController(m_Manager));
         }
