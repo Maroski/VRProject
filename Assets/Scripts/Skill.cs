@@ -18,30 +18,15 @@ public class Skill
     }
 
     public EAbility GetSkillType() { return m_Type; }
+    public EAbility GetPrereq(int index) { return (index < m_Prereqs.Length) ? m_Prereqs[index] : EAbility.None; }
+    public EAbility GetAntireq(int index) { return (index < m_Antireqs.Length) ? m_Antireqs[index] : EAbility.None; }
 
-    public bool IsPrereq(EAbility ability)
-    {
-        for (int i = 0; i < m_Prereqs.Length; i++)
-        {
-            if (m_Prereqs[i] == ability) return true;
-        }
-        return false;
-    }
-
-    public bool IsAntireq(EAbility ability)
-    {
-        for (int i = 0; i < m_Antireqs.Length; i++)
-        {
-            if (m_Antireqs[i] == ability) return true;
-        }
-        return false;
-    }
-
+    // TODO: we may want to make this a bit more robust by moving it out to a skill tree class
     public static Skill GetSkill(EAbility ability)
     {
         for (int i = 0; i < Skill.skills.Length; i++)
         {
-            if(Skill.skills[i].GetSkillType() == ability)
+            if (Skill.skills[i].GetSkillType() == ability)
             {
                 return Skill.skills[i];
             }
@@ -50,9 +35,12 @@ public class Skill
         Debug.Assert(false);
         return null;
     }
-
+    
+    // TODO: Once again, a skill tree class could make this cleaner.
     private static Skill[] skills = { new Skill(EAbility.Climb, new EAbility[] { }, new EAbility[] { }),
-                                      new Skill(EAbility.Mount, new EAbility[] { }, new EAbility[] { }),
+                                      new Skill(EAbility.Mount, new EAbility[] { EAbility.Jump }, new EAbility[] { }),
                                       new Skill(EAbility.Push,  new EAbility[] { }, new EAbility[] { }),
-                                      new Skill(EAbility.Talk,  new EAbility[] { }, new EAbility[] { }) };
+                                      new Skill(EAbility.Talk,  new EAbility[] { }, new EAbility[] { }),
+                                      new Skill(EAbility.Fireball,  new EAbility[] { EAbility.Talk }, new EAbility[] { EAbility.Icestorm }),
+                                      new Skill(EAbility.Icestorm,  new EAbility[] { EAbility.Talk }, new EAbility[] { EAbility.Fireball }) };
 }

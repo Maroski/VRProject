@@ -108,6 +108,7 @@ public class PlayerManager : MonoBehaviour
     public void LearnSkill(EAbility skill)
     {
         int skillID = (int)skill;
+        Debug.Assert(skill != EAbility.None);
         if (m_SkillList[skillID])
         {
             Debug.Log(String.Format("You have learnt {0} already", skill));
@@ -117,5 +118,10 @@ public class PlayerManager : MonoBehaviour
             Debug.Log(String.Format("YOU LEARNT {0}", skill));
             m_SkillList[skillID] = true;
         }
+    }
+
+    public bool HasSkill(EAbility skill)
+    {
+        return m_SkillList[(int)skill];
     }
 }

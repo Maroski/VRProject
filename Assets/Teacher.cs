@@ -13,7 +13,30 @@ public class Teacher : MonoBehaviour {
 
     public void TeachAbility(PlayerManager manager)
     {
-        // TODO: take skill prereqs/antireqs into account
+        int c = 0;
+        EAbility e = m_Skill.GetPrereq(c++);
+        while( e != EAbility.None)
+        {
+            if (!manager.HasSkill(e))
+            {
+                Debug.Log("Does not meet Prereqs!");
+                return;
+            }
+            e = m_Skill.GetPrereq(c++);
+        }
+
+        c = 0;
+        e = m_Skill.GetAntireq(c++);
+        while (e != EAbility.None)
+        {
+            if (manager.HasSkill(e))
+            {
+                Debug.Log("Cannot learn due to Antireqs!");
+                return;
+
+            }
+            e = m_Skill.GetAntireq(c++);
+        }
         manager.LearnSkill(m_Skill.GetSkillType());
     }
 }
