@@ -37,6 +37,9 @@ public class PlayerManager : MonoBehaviour
     {
         RotateView();
 
+        // TODO: Determine a better way to do gravity
+        m_CharacterController.SimpleMove(new Vector3(0f,0f,0f)); // hack to apply gravity
+
         RaycastHit HitInfo;
         int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
         if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f, NotPlayerMask))
@@ -97,9 +100,9 @@ public class PlayerManager : MonoBehaviour
         return m_WalkSpeed;
     }
 
-    public void Move(Vector3 MotionVector)
+    public void Move(Vector3 displacement)
     {
-        m_CharacterController.Move(MotionVector);
+        m_CharacterController.Move(displacement);
     }
 
     public void LearnSkill(EAbility skill)
