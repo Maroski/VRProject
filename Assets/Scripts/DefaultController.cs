@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Pilgrim.Selectable;
 
 namespace Pilgrim.Controller
 {
@@ -32,11 +33,13 @@ namespace Pilgrim.Controller
         override public void OnHover(RaycastHit HitInfo)
         {
             m_LastHit = HitInfo.collider.gameObject;
+            GuiOutput.DisplayContextMessage("HOVERING MAH LAZERS");
         }
 
         override public void OnHoverOff()
         {
             m_LastHit = null;
+            GuiOutput.ClearContextMessage();
         }
     }
 }
