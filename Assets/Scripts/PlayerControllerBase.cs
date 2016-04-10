@@ -3,13 +3,22 @@ using UnityEngine;
 
 namespace Pilgrim.Controller
 {
-    abstract public class PlayerControllerBase
+    public class PlayerControllerBase
     {
-        abstract public void OnClick();                     // User clicks button
-        abstract public void OnHold(float delta);           // User Keeps button pressed
-        abstract public void OnRelease(float delta);        // User releases button after holding it
-        abstract public void OnHover(RaycastHit HitInfo);   // User looks at a selectable
-        abstract public void OnHoverOff();                  // User stops looking at a selectable
+        protected PlayerManager m_Manager;
+
+        private PlayerControllerBase() { }
+
+        protected PlayerControllerBase(PlayerManager manager)
+        {
+            m_Manager = manager;
+        }
+
+        virtual public void OnClick() { }                     // User clicks button
+        virtual public void OnHold(float delta) { }           // User Keeps button pressed
+        virtual public void OnRelease(float delta) { }        // User releases button after holding it
+        virtual public void OnHover(RaycastHit HitInfo) { }   // User looks at a selectable
+        virtual public void OnHoverOff() { }                  // User stops looking at a selectable
     }
 
 }
