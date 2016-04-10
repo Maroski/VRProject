@@ -38,7 +38,8 @@ public class PlayerManager : MonoBehaviour
         RotateView();
 
         RaycastHit HitInfo;
-        if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f))
+        int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
+        if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f, NotPlayerMask))
         {
             m_WasHovering = true;
             m_controller.OnHover(HitInfo);
@@ -59,7 +60,6 @@ public class PlayerManager : MonoBehaviour
             m_MouseDown = false;
             if (m_HoldTime < m_ClickSensitivity)
             {
-                Debug.Log("Calling onclick");
                 m_controller.OnClick();
             } 
             else
@@ -72,7 +72,6 @@ public class PlayerManager : MonoBehaviour
             m_HoldTime += Time.deltaTime;
             if (m_HoldTime > m_ClickSensitivity)
             {
-                Debug.Log("Calling onhold");
                 m_controller.OnHold(m_HoldTime);
             }
         }

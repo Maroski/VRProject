@@ -15,7 +15,6 @@ namespace Pilgrim.Controller
         {
             if(m_LastHit != null)
             {
-                Debug.Log(m_LastHit.name);
                 Teacher SkillTeacher = m_LastHit.GetComponent<Teacher>();
                 if (SkillTeacher != null)
                 {
