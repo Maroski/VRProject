@@ -12,11 +12,10 @@ public class PlayerManager : MonoBehaviour
     private float m_HoldTime;
     private bool m_WasHovering;
     private CharacterController m_CharacterController;
+    private SkillTree m_SkillTree;
     [SerializeField] private PlayerControllerBase m_controller;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
-
-    bool[] m_SkillList;
 
     public float m_ClickSensitivity = 0.2f;
     private void Start()
@@ -24,12 +23,7 @@ public class PlayerManager : MonoBehaviour
         m_controller = new DefaultController(this);
         m_CharacterController = GetComponent<CharacterController>();
         m_Camera = Camera.main;
-        m_SkillList = new bool[Enum.GetNames(typeof(EAbility)).Length];
-        for(int i = 0; i < m_SkillList.Length; i++)
-        {
-            m_SkillList[i] = false;
-        }
-
+        m_SkillTree = new SkillTree();
         m_MouseLook.Init(transform, m_Camera.transform);
     }
 
@@ -105,23 +99,13 @@ public class PlayerManager : MonoBehaviour
         m_CharacterController.Move(displacement);
     }
 
-    public void LearnSkill(EAbility skill)
+    public void AcquireSkill(EAbility skill)
     {
-        int skillID = (int)skill;
-        Debug.Assert(skill != EAbility.None);
-        if (m_SkillList[skillID])
-        {
-            Debug.Log(String.Format("You have learnt {0} already", skill));
-        }
-        else
-        {
-            Debug.Log(String.Format("YOU LEARNT {0}", skill));
-            m_SkillList[skillID] = true;
-        }
+        m_SkillTree.AcquireSkill(skill);
     }
 
     public bool HasSkill(EAbility skill)
     {
-        return m_SkillList[(int)skill];
+        return m_SkillTree.HasSkill(skill);
     }
 }
