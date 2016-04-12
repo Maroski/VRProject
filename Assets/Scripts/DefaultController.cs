@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Pilgrim.Selectable;
 
 namespace Pilgrim.Controller
 {
@@ -34,10 +35,13 @@ namespace Pilgrim.Controller
             if(HitInfo != null)
             {
                 m_LastHit = ((RaycastHit) HitInfo).collider.gameObject;
+                GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit) HitInfo).distance);
             }
             else
             {
                 m_LastHit = null;
+                GuiOutput.ClearDebugDistanceMessage();
+                GuiOutput.ClearContextMessage();
             }
         }
     }

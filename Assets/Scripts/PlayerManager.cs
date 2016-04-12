@@ -135,10 +135,12 @@ public class PlayerManager : MonoBehaviour
         if (m_SkillList[skillID])
         {
             Debug.Log(String.Format("You have learnt {0} already", skill));
+            GuiOutput.EnqueueInfoMessage(String.Format("You have already learnt {0}", skill));
         }
         else
         {
             Debug.Log(String.Format("YOU LEARNT {0}", skill));
+            GuiOutput.EnqueueInfoMessage(String.Format("YOU LEARNT {0}", skill));
             m_SkillList[skillID] = true;
         }
     }
