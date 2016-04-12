@@ -4,21 +4,13 @@ using Pilgrim.EnumTypes;
 
 namespace Pilgrim.Selectable
 {
-    public class Teacher : MonoBehaviour
+    public class Teacher : Interactable
     {
-        [SerializeField]
-        private Skill m_Skill;
         public EAbility m_Type; // To be set in the IDE
 
-        public void Start()
+        override public void Respond(PlayerManager manager)
         {
-            m_Skill = Skill.GetSkill(m_Type);
-        }
-
-        public void TeachAbility(PlayerManager manager)
-        {
-            // TODO: take skill prereqs/antireqs into account
-            manager.LearnSkill(m_Skill.GetSkillType());
+            manager.AcquireSkill(m_Type);
         }
     }
 }
