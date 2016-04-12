@@ -9,7 +9,7 @@ public class GuiOutput : MonoBehaviour {
     static private Text m_contextMessage;
     static private Text m_debugDistanceMessage;
 
-    public readonly float MAX_DELTA = 5.0F;
+    public readonly float MAX_DELTA = 2.0F;
     static private float elapsed;
 
     static private Queue<string> m_messages;
@@ -71,12 +71,11 @@ public class GuiOutput : MonoBehaviour {
         }
     }
 
-    static public void EnqueueInfoMessage(string msg)
+    static public void Log(string msg)
     {
         if (m_infoMessage == null) { return; }
         
         m_messages.Enqueue(msg);
-        Debug.Log("Queued: " + msg);
     }
 
     static public void DisplayContextMessage(string msg)

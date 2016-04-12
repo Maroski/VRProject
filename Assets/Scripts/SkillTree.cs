@@ -54,7 +54,7 @@ public class SkillTree
             Debug.Assert(status != ESkillStatus.Acquired);
             if (status == ESkillStatus.Unlearnable) return;
             status = ESkillStatus.Unlearnable;
-            Debug.Log(String.Format("{0} is unlearnable now!", type));
+            GuiOutput.Log (String.Format("{0} is unlearnable now!", type));
 
             // All skills that depend on this skill are now unlearnable
             foreach (SkillNode n in dependents)
@@ -82,7 +82,7 @@ public class SkillTree
                 // When all prereqs are met the skill is learnable
                 if (n.remainingPrereqs == 0)
                 {
-                    Debug.Log(String.Format("{0} is learnable now!", n.type));
+                    GuiOutput.Log(String.Format("{0} is learnable now!", n.type));
                     n.status = ESkillStatus.Learnable;
                 }
             }
@@ -133,17 +133,17 @@ public class SkillTree
         switch (newSkill.GetStatus())
         {
             case ESkillStatus.Learnable:
+                GuiOutput.Log(String.Format("{0} Acquired!", skill));
                 newSkill.Acquire();
-                Debug.Log(String.Format("{0} Acquired!", skill));
                 break;
             case ESkillStatus.MissingPrereq:
-                Debug.Log("MISSING PREREQ");
+                GuiOutput.Log("MISSING PREREQ");
                 break;
             case ESkillStatus.Unlearnable:
-                Debug.Log("UNLEARNABLE");
+                GuiOutput.Log("UNLEARNABLE");
                 break;
             case ESkillStatus.Acquired:
-                Debug.Log("ALREADY LEARNT");
+                GuiOutput.Log("ALREADY LEARNT");
                 break;
 
         }

@@ -50,6 +50,7 @@ public class PlayerManager : MonoBehaviour
         int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
         if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f, NotPlayerMask))
         {
+            GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit)HitInfo).distance);
             m_WasHovering = true;
             GameObject NewTarget = HitInfo.collider.gameObject;
             if (NewTarget == m_PreviousTarget)

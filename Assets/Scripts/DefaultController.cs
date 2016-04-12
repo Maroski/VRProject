@@ -35,7 +35,6 @@ namespace Pilgrim.Controller
             if(HitInfo != null)
             {
                 m_LastHit = ((RaycastHit) HitInfo).collider.gameObject;
-                GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit) HitInfo).distance);
             }
             else
             {
