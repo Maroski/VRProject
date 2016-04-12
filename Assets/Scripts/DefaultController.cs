@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Pilgrim.Selectable;
 
 namespace Pilgrim.Controller
 {
@@ -8,35 +9,40 @@ namespace Pilgrim.Controller
         private GameObject m_LastHit;
         public DefaultController(PlayerManager manager) : base (manager)
         {
-            m_Manager = manager;
         }
 
         override public void OnClick()
         {
             if(m_LastHit != null)
             {
-                Teacher SkillTeacher = m_LastHit.GetComponent<Teacher>();
-                if (SkillTeacher != null)
+                Interactable interactor = m_LastHit.GetComponent<Interactable>();
+                if (interactor != null)
                 {
-                    SkillTeacher.TeachAbility(m_Manager);
+                    interactor.Respond(m_Manager);
                 }
             }
         }
 
         override public void OnHold(float delta)
         {
+
             Vector3 displacement = m_Manager.GetMoveDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
             m_Manager.Move(displacement);
         }
-
-        override public void OnHover(RaycastHit HitInfo)
+        
+        override public void OnTargetChange(RaycastHit? HitInfo)
         {
-            m_LastHit = HitInfo.collider.gameObject;
-        }
-
-        override public void OnHoverOff()
-        {
-            m_LastHit = null;
+            if(HitInfo != null)
+            {
+                m_LastHit = ((RaycastHit) HitInfo).collider.gameObject;
+                GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit) HitInfo).distance);
+            }
+            else
+            {
+                m_LastHit = null;
+                GuiOutput.ClearDebugDistanceMessage();
+                GuiOutput.ClearContextMessage();
+            }
         }
     }
 }
