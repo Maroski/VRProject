@@ -15,6 +15,13 @@ public class PlayerManager : MonoBehaviour
     private bool m_WasHovering;
     private GameObject m_PreviousTarget;
 
+    private Transform m_ActivePlatform;     // the platform we are standing on
+    private Vector3 m_GlobalPlatformPoint;  // our position in the world
+    private Vector3 m_LocalPlatformPoint;   // our position on the platform
+
+    private Quaternion m_GlobalPlatformRotation; // our orientation in the world
+    private Quaternion m_LocalPlatformRotation;  // our orientation relative to the platform
+
     private PlayerControllerBase m_NewController;
     private PlayerControllerBase m_controller;
     private CharacterController m_CharacterController;
@@ -115,7 +122,7 @@ public class PlayerManager : MonoBehaviour
             }
             m_DownVelocity += m_Gravity * Time.fixedDeltaTime;
             displacement = m_DownVelocity * Time.fixedDeltaTime;
-        }
+        } 
         else
         {
             m_WasGrounded = true;
@@ -124,11 +131,46 @@ public class PlayerManager : MonoBehaviour
         // Handle player input
         displacement += m_DesiredDisplacement.normalized * m_WalkSpeed * Time.fixedDeltaTime;
 
+        // Handle platform movement
+        if (m_ActivePlatform != null)
+        {
+            // Determine where we should be standing
+            Vector3 newGlobalPoint = m_ActivePlatform.TransformPoint(m_LocalPlatformPoint);
+            // Determine how much to move the character to get there
+            Vector3 moveDistance = newGlobalPoint - m_GlobalPlatformPoint;
+            displacement += moveDistance;
+
+            // Determine where we should be standing
+            Quaternion newGlobalRotation = m_ActivePlatform.rotation * m_LocalPlatformRotation;
+            // Determine how much we should rotate to get there
+            Quaternion angleToRotate = newGlobalRotation * Quaternion.Inverse(m_GlobalPlatformRotation);
+            // Straighten the transform to point up
+            angleToRotate = Quaternion.FromToRotation(angleToRotate * transform.up, transform.up) * angleToRotate;
+            transform.rotation = angleToRotate * transform.rotation;
+        }
+
         // Move the character
         m_CharacterController.Move(displacement);
 
         // Cleanup
         m_DesiredDisplacement = Vector3.zero;
+        if (m_ActivePlatform != null)
+        {
+            m_GlobalPlatformPoint = transform.position;
+            m_LocalPlatformPoint = m_ActivePlatform.InverseTransformPoint(transform.position);
+            m_GlobalPlatformRotation = transform.rotation;
+            m_LocalPlatformRotation = Quaternion.Inverse(m_ActivePlatform.transform.rotation) * transform.rotation;
+        }
+    }
+
+    private void OnControllerColliderHit (ControllerColliderHit hit)
+    {
+        // ensure that the collision was down and beneath us
+        // ie we are we fell on and above the platform 
+        if (hit.moveDirection.y < -0.9 && hit.normal.y > 0.5)
+        {
+            m_ActivePlatform = hit.collider.transform;
+        }
     }
 
     private void RotateView()
