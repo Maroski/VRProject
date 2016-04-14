@@ -113,8 +113,8 @@ public class PlayerManager : MonoBehaviour
                 m_DownVelocity = Vector3.zero;
                 m_WasGrounded = false;
             }
-            m_DownVelocity += m_Gravity * Time.deltaTime;
-            displacement = m_DownVelocity * Time.deltaTime;
+            m_DownVelocity += m_Gravity * Time.fixedDeltaTime;
+            displacement = m_DownVelocity * Time.fixedDeltaTime;
         }
         else
         {
@@ -122,7 +122,7 @@ public class PlayerManager : MonoBehaviour
         }
 
         // Handle player input
-        displacement += m_DesiredDisplacement.normalized * m_WalkSpeed * Time.deltaTime;
+        displacement += m_DesiredDisplacement.normalized * m_WalkSpeed * Time.fixedDeltaTime;
 
         // Move the character
         m_CharacterController.Move(displacement);
