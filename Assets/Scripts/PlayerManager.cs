@@ -8,17 +8,22 @@ using UnityStandardAssets.Characters.FirstPerson;
 public class PlayerManager : MonoBehaviour
 {
     private Camera m_Camera;
+    private bool m_WasGrounded;
     private bool m_MouseDown;
     private float m_HoldTime;
     private float m_HoverTime;
     private bool m_WasHovering;
     private GameObject m_PreviousTarget;
+
     private PlayerControllerBase m_NewController;
     private PlayerControllerBase m_controller;
     private CharacterController m_CharacterController;
     private SkillTree m_SkillTree;
+    [SerializeField] private Vector3 m_Gravity = Physics.gravity;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
+    private Vector3 m_DownVelocity;
+    private Vector3 m_DesiredDisplacement;
 
     public float m_ClickSensitivity = 0.2f;
     private void Start()
@@ -42,9 +47,6 @@ public class PlayerManager : MonoBehaviour
             m_NewController = null;
         }
         RotateView();
-
-        // TODO: Determine a better way to do gravity
-        m_CharacterController.SimpleMove(new Vector3(0f,0f,0f)); // hack to apply gravity
 
         RaycastHit HitInfo;
         int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
@@ -99,6 +101,36 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    private void FixedUpdate()
+    {
+        Vector3 displacement = Vector3.zero;
+
+        // Handle gravity
+        if (!m_CharacterController.isGrounded)
+        {
+            if (m_WasGrounded)
+            {
+                m_DownVelocity = Vector3.zero;
+                m_WasGrounded = false;
+            }
+            m_DownVelocity += m_Gravity * Time.deltaTime;
+            displacement = m_DownVelocity * Time.deltaTime;
+        }
+        else
+        {
+            m_WasGrounded = true;
+        }
+
+        // Handle player input
+        displacement += m_DesiredDisplacement.normalized * m_WalkSpeed * Time.deltaTime;
+
+        // Move the character
+        m_CharacterController.Move(displacement);
+
+        // Cleanup
+        m_DesiredDisplacement = Vector3.zero;
+    }
+
     private void RotateView()
     {
         m_MouseLook.LookRotation(transform, m_Camera.transform);
@@ -114,14 +146,9 @@ public class PlayerManager : MonoBehaviour
         return transform.forward;
     }
     
-    public float getWalkSpeed()
-    {
-        return m_WalkSpeed;
-    }
-
     public void Move(Vector3 displacement)
     {
-        m_CharacterController.Move(displacement);
+        m_DesiredDisplacement += displacement.normalized;
     }
 
     public void AcquireSkill(EAbility skill)
