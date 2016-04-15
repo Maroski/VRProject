@@ -26,7 +26,7 @@ namespace Pilgrim.Controller
         override public void OnHold(float delta)
         {
 
-            Vector3 displacement = m_Manager.GetMoveDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
+            Vector3 displacement = m_Manager.GetMoveDir();
             m_Manager.Move(displacement);
         }
         
