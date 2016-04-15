@@ -14,21 +14,7 @@ public class Blessable : Interactable {
 
     override public void Respond(PlayerManager m)
     {
-        BlessingController controller = m.Controller() as BlessingController;
-
-        // If interacting with a shrin of the same ability as you already have,
-        // deactivate the ability, otherwise get the new ability
-        if (controller != null && (controller.m_blessing == m_blessing))
-        {
-            Debug.Log("Deavctivated mah powerzzz");
-            m_Manager = null;
-            m.ChangeContext(new DefaultController(m));
-        }
-        else
-        {
-            m_Manager = m;
-            m.ChangeContext(new BlessingController(m, m_blessing, m_projectile));
-        }
+        m.ChangeContext(new BlessingController(m, m_blessing, m_projectile));
     }
 
     public void Update()
