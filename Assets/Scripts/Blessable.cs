@@ -22,7 +22,7 @@ public class Blessable : Interactable {
     {
         if (m_Manager != null)
         {
-            if (Vector3.Distance(m_Manager.GetPosition(), gameObject.transform.position) > SHRINE_EFFECTIVE_RANGE)
+            if (Vector3.Distance(m_Manager.transform.position, gameObject.transform.position) > SHRINE_EFFECTIVE_RANGE)
             {
                 m_Manager.ChangeContext(new DefaultController(m_Manager));
                 m_Manager = null;

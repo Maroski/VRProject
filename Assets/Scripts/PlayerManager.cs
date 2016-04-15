@@ -115,16 +115,6 @@ public class PlayerManager : MonoBehaviour
         return transform.forward;
     }
 
-    public Vector3 GetPosition()
-    {
-        return transform.position;
-    }
-
-    public Quaternion GetRotation()
-    {
-        return transform.rotation;
-    }
-
     public float getWalkSpeed()
     {
         return m_WalkSpeed;
@@ -148,10 +138,5 @@ public class PlayerManager : MonoBehaviour
     public void ChangeContext(PlayerControllerBase newController)
     {
         m_NewController = newController;
-    }
-
-    public PlayerControllerBase Controller()
-    {
-        return m_controller;
     }
 }
