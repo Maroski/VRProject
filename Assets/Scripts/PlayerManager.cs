@@ -29,6 +29,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Vector3 m_Gravity = Physics.gravity;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
+
     private Vector3 m_DownVelocity;
     private Vector3 m_DesiredDisplacement;
 
@@ -187,7 +188,7 @@ public class PlayerManager : MonoBehaviour
     {
         return transform.forward;
     }
-    
+
     public void Move(Vector3 displacement)
     {
         m_DesiredDisplacement += displacement.normalized;

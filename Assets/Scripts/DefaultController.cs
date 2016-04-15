@@ -6,7 +6,7 @@ namespace Pilgrim.Controller
 {
     public class DefaultController : PlayerControllerBase
     {
-        private GameObject m_LastHit;
+        protected GameObject m_LastHit;
         public DefaultController(PlayerManager manager) : base (manager)
         {
         }
