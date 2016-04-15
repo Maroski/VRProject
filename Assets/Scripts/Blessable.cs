@@ -14,6 +14,7 @@ public class Blessable : Interactable {
 
     override public void Respond(PlayerManager m)
     {
+        m_Manager = m;
         m.ChangeContext(new BlessingController(m, m_blessing, m_projectile));
     }
 
