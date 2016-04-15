@@ -18,7 +18,8 @@ namespace Pilgrim.Controller
                 Interactable interactor = m_LastHit.GetComponent<Interactable>();
                 if (interactor != null)
                 {
-                    interactor.Respond(m_Manager);
+                    Debug.Log("INTERACT");
+                    interactor.Interact(m_Manager);
                 }
             }
         }
