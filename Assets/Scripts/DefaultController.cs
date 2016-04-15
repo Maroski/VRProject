@@ -6,7 +6,7 @@ namespace Pilgrim.Controller
 {
     public class DefaultController : PlayerControllerBase
     {
-        private GameObject m_LastHit;
+        protected GameObject m_LastHit;
         public DefaultController(PlayerManager manager) : base (manager)
         {
         }
@@ -26,7 +26,7 @@ namespace Pilgrim.Controller
         override public void OnHold(float delta)
         {
 
-            Vector3 displacement = m_Manager.GetMoveDir() * m_Manager.getWalkSpeed() * Time.deltaTime;
+            Vector3 displacement = m_Manager.GetMoveDir();
             m_Manager.Move(displacement);
         }
         

@@ -13,4 +13,11 @@ namespace Pilgrim.EnumTypes
         Icestorm
 
     }
+
+    // Enum of all possible creatable projectile types
+    public enum ProjectileType
+    {
+        None,
+        Fireball
+    }
 }

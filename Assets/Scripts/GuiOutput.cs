@@ -8,6 +8,7 @@ public class GuiOutput : MonoBehaviour {
     static private Text m_infoMessage;
     static private Text m_contextMessage;
     static private Text m_debugDistanceMessage;
+    static private GameObject m_fullMessage;
 
     public readonly float MAX_DELTA = 2.0F;
     static private float elapsed;
@@ -30,9 +31,15 @@ public class GuiOutput : MonoBehaviour {
             .Find("ContextText")
             .gameObject
             .GetComponent<Text>() as Text;
-        
+
+        m_fullMessage = transform
+            .Find("Message")
+            .gameObject;
+        Debug.Log(m_fullMessage);
         m_messages = new Queue<string>();
         elapsed = 0.0F;
+
+        HideFullText();
     }
 
     private void Update()
@@ -99,5 +106,21 @@ public class GuiOutput : MonoBehaviour {
     static public void ClearDebugDistanceMessage()
     {
         DisplayDebugDistanceMessage("");
+    }
+
+    static public void DisplayFullText(string msg)
+    {
+        Text t = m_fullMessage.GetComponentInChildren<Text>();
+        Image i = m_fullMessage.GetComponentInChildren<Image>();
+        t.text = msg;
+        i.gameObject.GetComponent<CanvasRenderer>().SetAlpha(1f);
+    }
+
+    static public void HideFullText()
+    {
+        Text t = m_fullMessage.GetComponentInChildren<Text>();
+        Image i = m_fullMessage.GetComponentInChildren<Image>();
+        t.text = "";
+        i.gameObject.GetComponent<CanvasRenderer>().SetAlpha(0f);
     }
 }
