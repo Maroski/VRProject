@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pilgrim.EnumTypes;
 
 public class Rangeable : Interactable {
 
@@ -22,6 +23,29 @@ public class Rangeable : Interactable {
             manager.gameObject.GetComponentInChildren<Camera>().transform.forward * 
             projectile.GetComponent<ProjectileController>().Force()
         );
+    }
+
+    public ProjectileType m_targeted;
+
+    public void OnCollisionEnter(Collision col)
+    {
+        
+        // If the object is hit by the projectile,
+        // it is weak against, then destroy the object
+        /*if (col.gameObject.GetComponent<ProjectileController>().type == m_targeted)
+        {
+            Debug.Log(this);
+            Debug.Log(col.gameObject);
+            Debug.Log(gameObject.GetComponent<RangedInteraction>());
+            gameObject.GetComponent<RangedInteraction>()
+                .InteractWithProjectile(
+                    this,
+                    col.gameObject.GetComponent<ProjectileController>()
+                );
+        }*/
+
+        // Always destroy the projectile
+        Destroy(col.gameObject);
     }
 
 }

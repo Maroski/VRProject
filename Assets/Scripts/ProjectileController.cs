@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pilgrim.EnumTypes;
 
 // Models a projectile, handlies lifetime, and force
 public class ProjectileController : MonoBehaviour {
-
-    // Enum of all possible creatable projectile types
-    public enum ProjectileType
-    {
-        None,
-        Fireball
-    }
 
     // Maximum time for a projectile to live
     private readonly float TIME_TO_LIVE = 5.0F;

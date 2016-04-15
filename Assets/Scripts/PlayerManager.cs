@@ -19,6 +19,7 @@ public class PlayerManager : MonoBehaviour
     private SkillTree m_SkillTree;
     [SerializeField] private MouseLook m_MouseLook;
     [SerializeField] private float m_WalkSpeed = 2.0f;
+    private ProjectileType m_blessing;
 
     public float m_ClickSensitivity = 0.2f;
     private void Start()
@@ -113,7 +114,17 @@ public class PlayerManager : MonoBehaviour
     {
         return transform.forward;
     }
-    
+
+    public Vector3 GetPosition()
+    {
+        return transform.position;
+    }
+
+    public Quaternion GetRotation()
+    {
+        return transform.rotation;
+    }
+
     public float getWalkSpeed()
     {
         return m_WalkSpeed;
@@ -137,5 +148,10 @@ public class PlayerManager : MonoBehaviour
     public void ChangeContext(PlayerControllerBase newController)
     {
         m_NewController = newController;
+    }
+
+    public PlayerControllerBase Controller()
+    {
+        return m_controller;
     }
 }
