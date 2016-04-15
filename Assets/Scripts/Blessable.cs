@@ -2,6 +2,7 @@
 using System.Collections;
 using Pilgrim.Controller;
 using Pilgrim.EnumTypes;
+using System.Collections.Generic;
 
 public class Blessable : Interactable {
 
@@ -12,7 +13,13 @@ public class Blessable : Interactable {
 
     private PlayerManager m_Manager;
 
-    override public void Respond(PlayerManager m)
+    override public void Start()
+    {
+        m_Prereqs = new List<EAbility>();
+        m_Prereqs.Add(EAbility.Fireball);
+    }
+
+    override protected void Respond(PlayerManager m)
     {
         m_Manager = m;
         m.ChangeContext(new BlessingController(m, m_blessing, m_projectile));
