@@ -9,7 +9,7 @@ public class Blessable : Interactable {
     public Rigidbody m_projectile;
     public ProjectileType m_blessing;
 
-    public readonly float SHRINE_EFFECTIVE_RANGE = 15.0F;
+    public float SHRINE_EFFECTIVE_RANGE = 15.0F;
 
     private PlayerManager m_Manager;
 

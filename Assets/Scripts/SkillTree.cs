@@ -105,8 +105,8 @@ public class SkillTree
             m_SkillTree[i] = new SkillNode((EAbility)i);
         }
 
-        AddPrereq(EAbility.Fireball, EAbility.Talk);
-        AddPrereq(EAbility.Icestorm, EAbility.Talk);
+        AddPrereq(EAbility.Fireball, EAbility.Read);
+        AddPrereq(EAbility.Icestorm, EAbility.Read);
         AddAntireq(EAbility.Icestorm, EAbility.Fireball);
         AddPrereq(EAbility.Mount, EAbility.Push);
     }
