@@ -1,19 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Pilgrim.EnumTypes;
+using Pilgrim.Controller;
+using Pilgrim.Player;
 
-public class SimpleDestructionRangedInteraction : RangedInteraction
+
+namespace Pilgrim.Interaction
 {
-    // Destroy the target of the projectile when hit
-    override public void InteractWithProjectile(ProjectileController pc)
+    public class SimpleDestructionRangedInteraction : RangedInteraction
     {
-        // If the object is hit by the projectile,
-        // it is weak against, then destroy the object
-        if (pc.type == m_targeted)
+        // Destroy the target of the projectile when hit
+        override public void InteractWithProjectile(ProjectileController pc)
         {
-            Destroy(pc.gameObject);
-            Destroy(gameObject);
+            // If the object is hit by the projectile,
+            // it is weak against, then destroy the object
+            if (pc.type == m_targeted)
+            {
+                Destroy(pc.gameObject);
+                Destroy(gameObject);
+            }
+
         }
-        
     }
 }

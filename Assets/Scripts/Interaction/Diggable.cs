@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Pilgrim.EnumTypes;
+using Pilgrim.Player;
 
-public class Diggable : Interactable
+namespace Pilgrim.Interaction
 {
-    override public void Start()
+    public class Diggable : Interactable
     {
-        m_Prereqs = new List<EAbility>();
-        m_Prereqs.Add(EAbility.Dig);
-    }
+        override public void Start()
+        {
+            m_Prereqs = new List<EAbility>();
+            m_Prereqs.Add(EAbility.Dig);
+        }
 
-    override protected void Respond(PlayerManager m)
-    {
-        Destroy(gameObject); 
+        override protected void Respond(PlayerManager m)
+        {
+            Destroy(gameObject);
+        }
     }
 }

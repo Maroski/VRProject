@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Pilgrim.Controller;
 
-public class NoopRangedInteraction : RangedInteraction
+namespace Pilgrim.Interaction
 {
-    // Destroy the target of the projectile when hit
-    override public void InteractWithProjectile(ProjectileController pc)
+    public class NoopRangedInteraction : RangedInteraction
     {
-        Destroy(pc.gameObject);
+        // Destroy the target of the projectile when hit
+        override public void InteractWithProjectile(ProjectileController pc)
+        {
+            Destroy(pc.gameObject);
+        }
     }
 }

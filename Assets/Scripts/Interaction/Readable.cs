@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pilgrim.Controller;
 using Pilgrim.EnumTypes;
+using Pilgrim.Player;
 
-public class Readable : Interactable
+
+namespace Pilgrim.Interaction
 {
-    override public void Start()
+    public class Readable : Interactable
     {
-        m_Prereqs = new List<EAbility>();
-        m_Prereqs.Add(EAbility.Read);
-    }
+        [SerializeField] private string m_Message;
 
-    [SerializeField] private string m_Message;
-    override protected void Respond(PlayerManager m)
-    {
-        m.ChangeContext(new ReadController(m, m_Message)); 
+        override public void Start()
+        {
+            m_Prereqs = new List<EAbility>();
+            m_Prereqs.Add(EAbility.Read);
+        }
+
+        override protected void Respond(PlayerManager m)
+        {
+            m.ChangeContext(new ReadController(m, m_Message));
+        }
     }
 }

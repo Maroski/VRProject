@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Pilgrim.Player;
 
 namespace Pilgrim.Controller
 {

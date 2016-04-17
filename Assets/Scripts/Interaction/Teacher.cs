@@ -2,16 +2,20 @@
 using System.Collections;
 using Pilgrim.EnumTypes;
 using System;
+using Pilgrim.Player;
 
-namespace Pilgrim.Selectable
+namespace Pilgrim.Interaction
 {
-    public class Teacher : Interactable
+    namespace Pilgrim.Interaction
     {
-        public EAbility m_Type; // To be set in the IDE
-        
-        override protected void Respond(PlayerManager manager)
+        public class Teacher : Interactable
         {
-            manager.AcquireSkill(m_Type);
+            public EAbility m_Type; // To be set in the IDE
+
+            override protected void Respond(PlayerManager manager)
+            {
+                manager.AcquireSkill(m_Type);
+            }
         }
     }
 }

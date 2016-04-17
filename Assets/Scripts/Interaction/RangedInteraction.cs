@@ -1,23 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Pilgrim.EnumTypes;
+using Pilgrim.Controller;
 
-// Extend this class to generalize ranged interaction behaviours
-abstract public class RangedInteraction : MonoBehaviour
+
+namespace Pilgrim.Interaction
 {
-    abstract public void InteractWithProjectile(ProjectileController pc);
-
-    public ProjectileType m_targeted;
-
-    public void OnCollisionEnter(Collision col)
+    // Extend this class to generalize ranged interaction behaviours
+    // Any GameObject with this behaviour will be able to interact with custom projectiles
+    abstract public class RangedInteraction : MonoBehaviour
     {
-        
-        ProjectileController ptc = col.gameObject.GetComponent<ProjectileController>();
+        abstract public void InteractWithProjectile(ProjectileController pc);
 
-        if (ptc != null)
+        public ProjectileType m_targeted;
+
+        public void OnCollisionEnter(Collision col)
         {
-            InteractWithProjectile(ptc);
+
+            ProjectileController ptc = col.gameObject.GetComponent<ProjectileController>();
+
+            if (ptc != null)
+            {
+                InteractWithProjectile(ptc);
+            }
+
         }
-        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using Pilgrim.Selectable;
+using Pilgrim.Interaction;
+using Pilgrim.Player;
 
 namespace Pilgrim.Controller
 {
