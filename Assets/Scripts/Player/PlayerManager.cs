@@ -16,6 +16,7 @@ namespace Pilgrim.Player
         private float m_HoverTime;
         private bool m_WasHovering;
         private GameObject m_PreviousTarget;
+        public Transform m_Checkpoint;
 
         private Transform m_ActivePlatform;     // the platform we are standing on
         private Vector3 m_GlobalPlatformPoint;  // our position in the world
@@ -38,11 +39,11 @@ namespace Pilgrim.Player
         public float m_ClickSensitivity = 0.2f;
         private void Start()
         {
-            m_controller = new DefaultController(this);
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_SkillTree = new SkillTree();
             m_MouseLook.Init(transform, m_Camera.transform);
+            Reset();
         }
 
         private void Update()
@@ -210,5 +211,30 @@ namespace Pilgrim.Player
         {
             m_NewController = newController;
         }
+
+        public void SetCheckpoint(Transform checkpoint)
+        {
+            Debug.Log("SETCHECKPOINT");
+            m_Checkpoint = checkpoint;
+        }
+
+        private void Respawn()
+        {
+            Debug.Log("RESPAWN");
+            transform.position = m_Checkpoint.position;
+        }
+
+        public void Reset()
+        {
+            m_controller = new DefaultController(this);
+            m_WasGrounded = true;
+            m_WasHovering = false;
+            m_PreviousTarget = null;
+            m_ActivePlatform = null;
+            m_DownVelocity = Vector3.zero;
+            Respawn();
+        }
+
+
     }
 }
