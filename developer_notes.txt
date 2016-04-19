@@ -1,0 +1,55 @@
+Things to do:
+    * get a "selectable"GameObject modifier
+        - probably will use rays and the FPS camera thang
+        - Should be a prefab or something like that so we can add it to any object
+        - we also need a shader to indicate when an object is being selected
+        - Not sure where the listener for the button should be placed. We will have to think about that.
+            + Maybe there is an event system and we can just throw the event at the object on ray collisions (sounds a bit cumbersome to throw an event every frame)
+            + It should be delegated to a manager in FPSCharacter that will keep track of the last object it interacted with? Then when the object changes the manager can notify the selectable?
+    * Get boulder pushing in full swing
+        - click on a pushable object to begin interaction
+        - Look around to move around the boulder
+            + If we just do a "You turned X degrees so we will move you X degrees around the boulder" We will run into difficulties. For instance if the boulder is against a wall there is the opportunity for OoB clipping, and the possibility that the movements become unnaturally fast compared to the walking speed
+            + Another option is to allow the player to walka long the boulder when the are looking tangent to it sort of deal.
+            + Simplest option is to only allow the player to push the boulder forward. 
+         - click to leave the boulder you are pushing (ie click on click off style of interaction)
+     * Wall climbing (think LoZ where the wall is covered with vines) 
+       - Click to mount the wall. 
+       - Look up and hold to climb in the direction
+       - Click to drop off the wall
+       - Look behind you and click to jump off the wall?
+     * Basic jumping for platforming
+       - For scaling objects it may be easy enough to walk next to the object, look up, and click.
+       - For weird platforming segments we have options:
+            1. Click on nearby platform to jump to it
+            2. walk off a platform and jump is automatic
+     * Signs?
+        - this was an early idea but I think it would still be worth while to do.
+        - I would guess this is a matter of opening up a small display when you click it?
+        - This is not that high priority imo
+
+Things to think about:
+    * Differentiating between types of interactions
+        - We could have the type of interaction displayed in text at the top of the screen?
+        - The narrator could say what it is (could get really annoying really fast
+        - We could change the highlight color of the object
+       Types of interactions would be actions:
+        - Jump
+        - Learn,
+        - Climb
+        - Destroy
+        - Mount
+    * The idea for an inventory was suggested
+       - We would need a simple HUD to display the current items we are holding.
+       - If we need a HUD anyway to display what selecting an object would do this may not be too bad.
+       - We could do a cutsie thing where there is a door that requires three keys and you have to search each of the paths to find all the keys? Where keys are an item you must collect
+    * Camera orientation:
+        - Should we do absolute orientation?
+           + North in the "real world" is north in the VR world
+           + I think this would roughly mean the player can only ever move in straight lines
+        - Should we keep orientation fairly loose
+           + North in the real world is not north in the VR world
+           + ie Suppose we decide to interact with boulders by allowing the player to look to the sides and hold in order to strafe around the perimeter of the boulder. This sort of interaction would violate an absolute orientation system as what is "forward" for the player would change as you strafe.
+       
+       
+        
