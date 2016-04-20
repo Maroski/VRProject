@@ -4,6 +4,7 @@ using System.Collections;
 public class NarrationTriggerHandler : MonoBehaviour {
 
     private bool m_played;
+    public bool m_playOnce;
 
 	// Use this for initialization
 	void Start () {
@@ -16,7 +17,10 @@ public class NarrationTriggerHandler : MonoBehaviour {
     {
         if (!m_played)
         {
-            m_played = true;
+            if (m_playOnce)
+            {
+                m_played = true;
+            }
             GetComponent<AudioSource>().Play();
         }
         
