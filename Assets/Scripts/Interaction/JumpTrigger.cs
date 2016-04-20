@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Pilgrim.Player;
+using Pilgrim.Controller;
 
 public class JumpTrigger : MonoBehaviour {
-
-    public float m_height = 3.0F;
-
+    [SerializeField] private float m_LaunchAngle;
     void OnTriggerEnter(Collider col)
     {
         PlayerManager pm = col.gameObject.GetComponent<PlayerManager>();
         if (pm != null)
         {
-            pm.SetJumpPossible(true);
+            pm.ChangeContext(new JumpController(pm, m_LaunchAngle));
         }
+
     }
 
     void OnTriggerExit(Collider col)
@@ -20,7 +20,7 @@ public class JumpTrigger : MonoBehaviour {
         PlayerManager pm = col.gameObject.GetComponent<PlayerManager>();
         if (pm != null)
         {
-            pm.SetJumpPossible(false);
+            pm.ChangeContext(new DefaultController(pm));
         }
     }
 }
