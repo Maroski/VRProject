@@ -10,7 +10,6 @@ namespace Pilgrim.Player
     public class PlayerManager : MonoBehaviour
     {
         private Camera m_Camera;
-        private bool m_WasGrounded;
         private bool m_MouseDown;
         private float m_HoldTime;
         private float m_HoverTime;
@@ -32,11 +31,15 @@ namespace Pilgrim.Player
         [SerializeField] private Vector3 m_Gravity = Physics.gravity;
         [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private float m_WalkSpeed = 2.0f;
+        [SerializeField] private float m_JumpPower = 5f;
 
-        private Vector3 m_DownVelocity;
-        private Vector3 m_DesiredDisplacement;
+        private Vector3 m_Velocity;
+        private Vector3 m_DesiredDisplacement = Vector3.zero;
 
         public float m_ClickSensitivity = 0.2f;
+
+        private bool m_DoJump = false;
+
         private void Start()
         {
             m_CharacterController = GetComponent<CharacterController>();
@@ -117,19 +120,15 @@ namespace Pilgrim.Player
             Vector3 displacement = Vector3.zero;
 
             // Handle gravity
-            if (!m_CharacterController.isGrounded)
+            if (!m_CharacterController.isGrounded || m_DoJump)
             {
-                if (m_WasGrounded)
-                {
-                    m_DownVelocity = Vector3.zero;
-                    m_WasGrounded = false;
-                }
-                m_DownVelocity += m_Gravity * Time.fixedDeltaTime;
-                displacement = m_DownVelocity * Time.fixedDeltaTime;
+                m_Velocity += m_Gravity * Time.fixedDeltaTime;
+                displacement = m_Velocity * Time.fixedDeltaTime;
+                m_DoJump = false;
             } 
-            else
+            else // Character is grounded
             {
-                m_WasGrounded = true;
+                m_Velocity = m_Gravity * Time.fixedDeltaTime;
             }
 
             // Handle player input
@@ -167,6 +166,16 @@ namespace Pilgrim.Player
             }
         }
 
+        public void Jump(float launchAngle)
+        {
+            if (!m_CharacterController.isGrounded) { return; }
+            m_DoJump = true;
+            m_Velocity = GetMoveDir();
+            m_Velocity.y = 0;
+            m_Velocity = Vector3.RotateTowards(m_Velocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
+            m_Velocity = m_Velocity.normalized * m_JumpPower;
+        }
+
         private void OnControllerColliderHit (ControllerColliderHit hit)
         {
             // ensure that the collision was down and beneath us
@@ -194,7 +203,10 @@ namespace Pilgrim.Player
 
         public void Move(Vector3 displacement)
         {
-            m_DesiredDisplacement += displacement.normalized;
+            if (!m_DoJump)
+            {
+                m_DesiredDisplacement += displacement.normalized;
+            }
         }
 
         public void AcquireSkill(EAbility skill)
@@ -209,6 +221,7 @@ namespace Pilgrim.Player
 
         public void ChangeContext(PlayerControllerBase newController)
         {
+            Debug.Log(String.Format("Switched to {0}", newController.GetType()));
             m_NewController = newController;
         }
 
