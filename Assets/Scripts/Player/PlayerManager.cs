@@ -240,11 +240,10 @@ namespace Pilgrim.Player
         public void Reset()
         {
             m_controller = new DefaultController(this);
-            m_WasGrounded = true;
             m_WasHovering = false;
             m_PreviousTarget = null;
             m_ActivePlatform = null;
-            m_DownVelocity = Vector3.zero;
+            m_Velocity = Vector3.zero;
             Respawn();
         }
 
