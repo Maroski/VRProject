@@ -22,6 +22,10 @@ namespace Pilgrim.Controller
                     Debug.Log("INTERACT");
                     interactor.Interact(m_Manager);
                 }
+                else if (m_Manager.JumpPossible())
+                {
+                    m_Manager.Jump();
+                }
             }
         }
 

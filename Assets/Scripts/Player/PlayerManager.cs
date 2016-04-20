@@ -36,6 +36,11 @@ namespace Pilgrim.Player
         private Vector3 m_DesiredDisplacement;
 
         public float m_ClickSensitivity = 0.2f;
+
+        public float m_maxHorizontalJumpDistance = 5.0F;
+        private bool m_jumpPossible;
+        private Vector3 m_jumpVelocity = Vector3.zero;
+
         private void Start()
         {
             m_controller = new DefaultController(this);
@@ -166,6 +171,13 @@ namespace Pilgrim.Player
             }
         }
 
+        public void Jump()
+        {
+            if (!m_CharacterController.isGrounded) { return; }
+
+
+        }
+
         private void OnControllerColliderHit (ControllerColliderHit hit)
         {
             // ensure that the collision was down and beneath us
@@ -209,6 +221,16 @@ namespace Pilgrim.Player
         public void ChangeContext(PlayerControllerBase newController)
         {
             m_NewController = newController;
+        }
+
+        public bool JumpPossible()
+        {
+            return m_jumpPossible;
+        }
+
+        public void SetJumpPossible(bool value)
+        {
+            m_jumpPossible = value;
         }
     }
 }
