@@ -10,6 +10,7 @@ namespace Pilgrim.Controller
         protected GameObject m_LastHit;
         public DefaultController(PlayerManager manager) : base (manager)
         {
+            m_LastHit = manager.GetLastTarget();
         }
 
         override public void OnClick()

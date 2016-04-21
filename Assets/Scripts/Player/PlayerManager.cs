@@ -260,6 +260,11 @@ namespace Pilgrim.Player
             return m_PreviousHit;
         }
 
+        public GameObject GetLastTarget()
+        {
+            return m_PreviousTarget;
+        }
+
         public bool IsClimbing()
         {
             return m_controller is ClimbingController;
