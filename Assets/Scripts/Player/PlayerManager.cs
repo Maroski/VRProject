@@ -189,6 +189,7 @@ namespace Pilgrim.Player
 
         public void Jump(float launchAngle)
         {
+            if (!HasSkill(EAbility.Jump)) return;
             m_IsJumping = true;
             m_FallVelocity = GetMoveDir();
             m_FallVelocity.y = 0;
