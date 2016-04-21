@@ -16,7 +16,14 @@ namespace Pilgrim.Controller
 
         override public void OnClick()
         {
+            Vector3 look = m_Manager.GetLookDir();
+            bool lookAway = (m_Normal - Vector3.Project(look, m_Normal)).magnitude < m_Normal.magnitude;
             m_Manager.ChangeContext(new DefaultController(m_Manager));
+
+            if (lookAway)
+            {
+                m_Manager.Jump(45f);
+            }
         }
 
         override public void OnHold(float delta)

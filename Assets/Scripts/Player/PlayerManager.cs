@@ -34,12 +34,11 @@ namespace Pilgrim.Player
         [SerializeField] private float m_WalkSpeed = 2.0f;
         [SerializeField] private float m_JumpPower = 5f;
 
-        private Vector3 m_Velocity;
+        public Vector3 m_FallVelocity;
         private Vector3 m_DesiredDisplacement = Vector3.zero;
 
         public float m_ClickSensitivity = 0.2f;
-
-        private bool m_DoJump;
+        private bool m_IsJumping;
 
         public void Reset()
         {
@@ -51,9 +50,9 @@ namespace Pilgrim.Player
             m_WasHovering = false;
             m_PreviousTarget = null;
             m_ActivePlatform = null;
-            m_Velocity = Vector3.zero;
+            m_FallVelocity = Vector3.zero;
             m_PreviousHit = null;
-            m_DoJump = false;
+            m_IsJumping = false;
             Respawn();
         }
 
@@ -138,20 +137,23 @@ namespace Pilgrim.Player
         {
             Vector3 displacement = Vector3.zero;
 
+            // TODO: clean this up. I do not think we need to check isGrounded
             // Handle gravity
-            if ((!m_CharacterController.isGrounded || m_DoJump) && !IsClimbing())
+            if (m_CharacterController.isGrounded)
             {
-                m_Velocity += m_Gravity * Time.fixedDeltaTime;
-                displacement = m_Velocity * Time.fixedDeltaTime;
-                m_DoJump = false;
-            }
-            else // Character is grounded/not climbing
-            {
-                m_Velocity = m_Gravity * Time.fixedDeltaTime;
+                m_IsJumping = false;
+                m_FallVelocity = Vector3.zero;
             }
 
-            // Handle player input
-            displacement += m_DesiredDisplacement.normalized * m_WalkSpeed * Time.fixedDeltaTime;
+            // Don't apply gravity if we are climbing
+            if (!IsClimbing())
+            {
+                m_FallVelocity += m_Gravity * Time.fixedDeltaTime;
+            }
+
+            // Include player input
+            Vector3 totalVelocity = m_FallVelocity + m_DesiredDisplacement.normalized * m_WalkSpeed;
+            displacement += totalVelocity * Time.fixedDeltaTime;
 
             // Handle platform movement
             if (m_ActivePlatform != null)
@@ -187,12 +189,11 @@ namespace Pilgrim.Player
 
         public void Jump(float launchAngle)
         {
-            if (!m_CharacterController.isGrounded) { return; }
-            m_DoJump = true;
-            m_Velocity = GetMoveDir();
-            m_Velocity.y = 0;
-            m_Velocity = Vector3.RotateTowards(m_Velocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
-            m_Velocity = m_Velocity.normalized * m_JumpPower;
+            m_IsJumping = true;
+            m_FallVelocity = GetMoveDir();
+            m_FallVelocity.y = 0;
+            m_FallVelocity = Vector3.RotateTowards(m_FallVelocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
+            m_FallVelocity = m_FallVelocity.normalized * m_JumpPower;
         }
 
         private void OnControllerColliderHit (ControllerColliderHit hit)
@@ -212,7 +213,7 @@ namespace Pilgrim.Player
 
         public void Move(Vector3 displacement)
         {
-            if (!m_DoJump)
+            if (!m_IsJumping)
             {
                 m_DesiredDisplacement += displacement.normalized;
             }
