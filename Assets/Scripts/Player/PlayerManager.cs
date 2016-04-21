@@ -15,6 +15,7 @@ namespace Pilgrim.Player
         private float m_HoverTime;
         private bool m_WasHovering;
         private GameObject m_PreviousTarget;
+        private RaycastHit? m_PreviousHit;
         public Transform m_Checkpoint;
 
         private Transform m_ActivePlatform;     // the platform we are standing on
@@ -38,7 +39,23 @@ namespace Pilgrim.Player
 
         public float m_ClickSensitivity = 0.2f;
 
-        private bool m_DoJump = false;
+        private bool m_DoJump;
+
+        public void Reset()
+        {
+            m_controller = new DefaultController(this);
+            m_ActivePlatform = null;
+            m_MouseDown = false;
+            m_HoverTime = 0f;
+            m_HoldTime = 0f;
+            m_WasHovering = false;
+            m_PreviousTarget = null;
+            m_ActivePlatform = null;
+            m_Velocity = Vector3.zero;
+            m_PreviousHit = null;
+            m_DoJump = false;
+            Respawn();
+        }
 
         private void Start()
         {
@@ -68,6 +85,7 @@ namespace Pilgrim.Player
             {
                 GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit)HitInfo).distance);
                 m_WasHovering = true;
+                m_PreviousHit = HitInfo;
                 GameObject NewTarget = HitInfo.collider.gameObject;
                 if (NewTarget == m_PreviousTarget)
                 {
@@ -85,6 +103,7 @@ namespace Pilgrim.Player
             {
                 m_WasHovering = false;
                 m_PreviousTarget = null;
+                m_PreviousHit = null;
                 m_controller.OnTargetChange(null);
             }
 
@@ -120,13 +139,13 @@ namespace Pilgrim.Player
             Vector3 displacement = Vector3.zero;
 
             // Handle gravity
-            if (!m_CharacterController.isGrounded || m_DoJump)
+            if ((!m_CharacterController.isGrounded || m_DoJump) && !IsClimbing())
             {
                 m_Velocity += m_Gravity * Time.fixedDeltaTime;
                 displacement = m_Velocity * Time.fixedDeltaTime;
                 m_DoJump = false;
-            } 
-            else // Character is grounded
+            }
+            else // Character is grounded/not climbing
             {
                 m_Velocity = m_Gravity * Time.fixedDeltaTime;
             }
@@ -191,32 +210,12 @@ namespace Pilgrim.Player
             m_MouseLook.LookRotation(transform, m_Camera.transform);
         }
 
-        public Vector3 GetLookDir()
-        {
-            return m_Camera.transform.forward;
-        }
-
-        public Vector3 GetMoveDir()
-        {
-            return transform.forward;
-        }
-
         public void Move(Vector3 displacement)
         {
             if (!m_DoJump)
             {
                 m_DesiredDisplacement += displacement.normalized;
             }
-        }
-
-        public void AcquireSkill(EAbility skill)
-        {
-            m_SkillTree.AcquireSkill(skill);
-        }
-
-        public bool HasSkill(EAbility skill)
-        {
-            return m_SkillTree.HasSkill(skill);
         }
 
         public void ChangeContext(PlayerControllerBase newController)
@@ -235,20 +234,35 @@ namespace Pilgrim.Player
             transform.position = m_Checkpoint.position;
         }
 
-        public void Reset()
+        public void AcquireSkill(EAbility skill)
         {
-            m_controller = new DefaultController(this);
-            m_ActivePlatform = null;
-            m_MouseDown = false;
-            m_HoverTime = 0f;
-            m_HoldTime = 0f;
-            m_WasHovering = false;
-            m_PreviousTarget = null;
-            m_ActivePlatform = null;
-            m_Velocity = Vector3.zero;
-            Respawn();
+            m_SkillTree.AcquireSkill(skill);
         }
 
+        public bool HasSkill(EAbility skill)
+        {
+            return m_SkillTree.HasSkill(skill);
+        }
+
+        public Vector3 GetLookDir()
+        {
+            return m_Camera.transform.forward;
+        }
+
+        public Vector3 GetMoveDir()
+        {
+            return transform.forward;
+        }
+
+        public RaycastHit? GetLastTargetHitInfo()
+        {
+            return m_PreviousHit;
+        }
+
+        public bool IsClimbing()
+        {
+            return m_controller is ClimbingController;
+        }
 
     }
 }

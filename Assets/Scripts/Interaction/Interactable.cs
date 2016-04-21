@@ -10,7 +10,7 @@ namespace Pilgrim.Interaction
     {
         protected List<EAbility> m_Prereqs;
 
-        virtual public void Start()
+        virtual protected void Start()
         {
             m_Prereqs = new List<EAbility>();
         }
