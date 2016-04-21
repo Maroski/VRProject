@@ -227,24 +227,25 @@ namespace Pilgrim.Player
 
         public void SetCheckpoint(Transform checkpoint)
         {
-            Debug.Log("SETCHECKPOINT");
             m_Checkpoint = checkpoint;
         }
 
         private void Respawn()
         {
-            Debug.Log("RESPAWN");
             transform.position = m_Checkpoint.position;
         }
 
         public void Reset()
         {
             m_controller = new DefaultController(this);
-            m_WasGrounded = true;
+            m_ActivePlatform = null;
+            m_MouseDown = false;
+            m_HoverTime = 0f;
+            m_HoldTime = 0f;
             m_WasHovering = false;
             m_PreviousTarget = null;
             m_ActivePlatform = null;
-            m_DownVelocity = Vector3.zero;
+            m_Velocity = Vector3.zero;
             Respawn();
         }
 
