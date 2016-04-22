@@ -30,7 +30,6 @@ namespace Pilgrim.Player
         private CharacterController m_CharacterController;
         private SkillTree m_SkillTree;
         [SerializeField] private Vector3 m_Gravity = Physics.gravity;
-        [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private float m_WalkSpeed = 2.0f;
         [SerializeField] private float m_JumpPower = 5f;
 
@@ -39,6 +38,7 @@ namespace Pilgrim.Player
 
         public float m_ClickSensitivity = 0.2f;
         private bool m_IsJumping;
+        private Transform m_Head;
 
         public void Reset()
         {
@@ -60,8 +60,8 @@ namespace Pilgrim.Player
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
+            m_Head = transform.Find("Head");
             m_SkillTree = new SkillTree();
-            m_MouseLook.Init(transform, m_Camera.transform);
             Reset();
         }
 
@@ -76,13 +76,11 @@ namespace Pilgrim.Player
                 m_controller = m_NewController;
                 m_NewController = null;
             }
-            RotateView();
 
             RaycastHit HitInfo;
             int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
             if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f, NotPlayerMask))
             {
-                GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit)HitInfo).distance);
                 m_WasHovering = true;
                 m_PreviousHit = HitInfo;
                 GameObject NewTarget = HitInfo.collider.gameObject;
@@ -207,11 +205,6 @@ namespace Pilgrim.Player
             }
         }
 
-        private void RotateView()
-        {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
-        }
-
         public void Move(Vector3 displacement)
         {
             if (!m_IsJumping && HasSkill(EAbility.Walk))
@@ -253,7 +246,7 @@ namespace Pilgrim.Player
 
         public Vector3 GetMoveDir()
         {
-            return transform.forward;
+            return m_Head.forward - Vector3.Project(m_Head.forward, Vector3.up);
         }
 
         public RaycastHit? GetLastTargetHitInfo()
