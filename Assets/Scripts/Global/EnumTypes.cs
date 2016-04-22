@@ -12,7 +12,8 @@ namespace Pilgrim.EnumTypes
         Fireball,
         Icestorm,
         Read,
-        Dig
+        Dig,
+        Walk
     }
 
     // Enum of all possible creatable projectile types

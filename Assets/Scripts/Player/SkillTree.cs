@@ -15,6 +15,7 @@ namespace Pilgrim.Player
             Unlearnable,
             Acquired
         }
+
         private class SkillNode
         {
             private EAbility type;
@@ -110,7 +111,6 @@ namespace Pilgrim.Player
             AddPrereq(EAbility.Fireball, EAbility.Read);
             AddPrereq(EAbility.Icestorm, EAbility.Read);
             AddAntireq(EAbility.Icestorm, EAbility.Fireball);
-            AddPrereq(EAbility.Mount, EAbility.Push);
         }
 
         private void AddPrereq(EAbility dependent, EAbility prereq)
