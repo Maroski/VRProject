@@ -17,7 +17,7 @@ namespace Pilgrim.Interaction
 
         private PlayerManager m_Manager;
 
-        override public void Start()
+        override protected void Start()
         {
             m_Prereqs = new List<EAbility>();
             m_Prereqs.Add(EAbility.Fireball);
