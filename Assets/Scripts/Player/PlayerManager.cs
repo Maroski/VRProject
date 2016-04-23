@@ -9,8 +9,6 @@ namespace Pilgrim.Player
     [RequireComponent(typeof (CharacterController))]
     public class PlayerManager : MonoBehaviour
     {
-        private bool m_startJump;
-
         private Camera m_Camera;
         private bool m_MouseDown;
         private float m_HoldTime;
@@ -32,7 +30,6 @@ namespace Pilgrim.Player
         private CharacterController m_CharacterController;
         private SkillTree m_SkillTree;
         [SerializeField] private Vector3 m_Gravity = Physics.gravity;
-        [SerializeField] private MouseLook m_MouseLook;
         [SerializeField] private float m_WalkSpeed = 2.0f;
         [SerializeField] private float m_JumpPower = 5f;
 
@@ -41,6 +38,8 @@ namespace Pilgrim.Player
 
         public float m_ClickSensitivity = 0.2f;
         private bool m_IsJumping;
+        private bool m_StartJump;
+        private Transform m_Head;
 
         public void Reset()
         {
@@ -62,8 +61,8 @@ namespace Pilgrim.Player
         {
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
-            m_SkillTree = new SkillTree();
-            m_MouseLook.Init(transform, m_Camera.transform);
+            m_Head = transform.Find("Head");
+            m_SkillTree = SkillTree.getInstance();
             Reset();
         }
 
@@ -78,13 +77,11 @@ namespace Pilgrim.Player
                 m_controller = m_NewController;
                 m_NewController = null;
             }
-            RotateView();
 
             RaycastHit HitInfo;
             int NotPlayerMask = ~(1 << LayerMask.NameToLayer("PlayerCharacter"));
             if (Physics.Raycast(m_Camera.transform.position, m_Camera.transform.forward, out HitInfo, 10.0f, NotPlayerMask))
             {
-                GuiOutput.DisplayDebugDistanceMessage("" + ((RaycastHit)HitInfo).distance);
                 m_WasHovering = true;
                 m_PreviousHit = HitInfo;
                 GameObject NewTarget = HitInfo.collider.gameObject;
@@ -143,15 +140,15 @@ namespace Pilgrim.Player
 
             // TODO: clean this up. I do not think we need to check isGrounded
             // Handle gravity
-            if (m_CharacterController.isGrounded && !m_startJump)
+            if (m_CharacterController.isGrounded & !m_StartJump)
             {
                 
                 m_IsJumping = false;
                 m_FallVelocity = Vector3.zero;
             }
-            else if (m_startJump)
+            else if (m_StartJump)
             {
-                m_startJump = false;
+                m_StartJump = false;
                 m_IsJumping = true;
             }
 
@@ -199,15 +196,12 @@ namespace Pilgrim.Player
 
         public void Jump(float launchAngle)
         {
-            Debug.Log("HELLO FROM JUMP!");
-            if (!HasSkill(EAbility.Jump)) return;
-            m_startJump = true;
+            if (!HasSkill(EAbility.Jump) || m_IsJumping) return;
+            m_StartJump = true;
             m_FallVelocity = GetMoveDir();
             m_FallVelocity.y = 0;
             m_FallVelocity = Vector3.RotateTowards(m_FallVelocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
             m_FallVelocity = m_FallVelocity.normalized * m_JumpPower;
-            Debug.Log("HELLO LEAVING JUMP!");
-
         }
 
         private void OnControllerColliderHit (ControllerColliderHit hit)
@@ -220,14 +214,9 @@ namespace Pilgrim.Player
             }
         }
 
-        private void RotateView()
-        {
-            m_MouseLook.LookRotation(transform, m_Camera.transform);
-        }
-
         public void Move(Vector3 displacement)
         {
-            if (!m_IsJumping)
+            if (!m_IsJumping && HasSkill(EAbility.Walk))
             {
                 m_DesiredDisplacement += displacement.normalized;
             }
@@ -266,7 +255,7 @@ namespace Pilgrim.Player
 
         public Vector3 GetMoveDir()
         {
-            return transform.forward;
+            return m_Head.forward - Vector3.Project(m_Head.forward, Vector3.up);
         }
 
         public RaycastHit? GetLastTargetHitInfo()

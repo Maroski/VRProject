@@ -7,7 +7,6 @@ public class GuiOutput : MonoBehaviour {
 
     static private Text m_infoMessage;
     static private Text m_contextMessage;
-    static private Text m_debugDistanceMessage;
     static private GameObject m_fullMessage;
 
     public readonly float MAX_DELTA = 2.0F;
@@ -17,11 +16,6 @@ public class GuiOutput : MonoBehaviour {
 
     private void Start()
     {
-        m_debugDistanceMessage = transform
-            .Find("DistanceDebug")
-            .gameObject
-            .GetComponent<Text>() as Text;
-        
         m_infoMessage = transform
             .Find("InfoText")
             .gameObject
@@ -94,18 +88,6 @@ public class GuiOutput : MonoBehaviour {
     static public void ClearContextMessage()
     {
         DisplayContextMessage("");
-    }
-
-    static public void DisplayDebugDistanceMessage(string msg)
-    {
-        if (m_debugDistanceMessage == null) { return; }
-
-        m_debugDistanceMessage.text = msg;
-    }
-
-    static public void ClearDebugDistanceMessage()
-    {
-        DisplayDebugDistanceMessage("");
     }
 
     static public void DisplayFullText(string msg)

@@ -41,7 +41,6 @@ namespace Pilgrim.Controller
             else
             {
                 m_LastHit = null;
-                GuiOutput.ClearDebugDistanceMessage();
                 GuiOutput.ClearContextMessage();
             }
         }

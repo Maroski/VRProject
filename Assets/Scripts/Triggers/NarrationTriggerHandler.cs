@@ -7,6 +7,7 @@ namespace Pilgrim.Trigger
 
         private bool m_played;
         public bool m_playOnce;
+        public AudioClip m_clip;
 
         // Use this for initialization
         void Start () {
@@ -23,7 +24,7 @@ namespace Pilgrim.Trigger
                 {
                     m_played = true;
                 }
-                GetComponent<AudioSource>().Play();
+                Narrator.PlaySound(m_clip);
             }
         
         }

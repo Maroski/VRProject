@@ -8,6 +8,17 @@ namespace Pilgrim.Player
 {
     public class SkillTree
     {
+        static SkillTree instance = null;
+
+        static public SkillTree getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SkillTree();
+            }
+            return instance;
+        }
+
         private enum ESkillStatus
         {
             Learnable,
@@ -15,6 +26,7 @@ namespace Pilgrim.Player
             Unlearnable,
             Acquired
         }
+
         private class SkillNode
         {
             private EAbility type;
@@ -99,7 +111,7 @@ namespace Pilgrim.Player
         }
 
         private SkillNode[] m_SkillTree;
-        public SkillTree()
+        private SkillTree()
         {
             m_SkillTree = new SkillNode[Enum.GetNames(typeof(EAbility)).Length];
             for (int i = 0; i < m_SkillTree.Length; i++)
@@ -110,7 +122,6 @@ namespace Pilgrim.Player
             AddPrereq(EAbility.Fireball, EAbility.Read);
             AddPrereq(EAbility.Icestorm, EAbility.Read);
             AddAntireq(EAbility.Icestorm, EAbility.Fireball);
-            AddPrereq(EAbility.Mount, EAbility.Push);
         }
 
         private void AddPrereq(EAbility dependent, EAbility prereq)
@@ -137,6 +148,7 @@ namespace Pilgrim.Player
                 case ESkillStatus.Learnable:
                     GuiOutput.Log(String.Format("{0} Acquired!", skill));
                     newSkill.Acquire();
+                    Narrator.OnSkillLearned(skill);
                     break;
                 case ESkillStatus.MissingPrereq:
                     GuiOutput.Log("MISSING PREREQ");
