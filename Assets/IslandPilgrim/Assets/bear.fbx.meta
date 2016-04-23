@@ -1,0 +1,472 @@
+fileFormatVersion: 2
+guid: f2fe15917049c164c9b03d4491ba8236
+timeCreated: 1461285223
+licenseType: Pro
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: back
+    100002: backRightFoot
+    100004: backRightKnee
+    100006: backRightThigh
+    100008: //RootNode
+    100010: face
+    100012: frontRight Thigh
+    100014: frontRightFoot
+    100016: frontRightKnee
+    100018: leftBackFoot
+    100020: leftBackKnee
+    100022: leftBackThigh
+    100024: leftFrontFoot
+    100026: leftFrontKnee
+    100028: leftFrontThigh
+    100030: lowerJaw
+    100032: neck
+    100034: stomach
+    100036: tail
+    100038: upperJaw
+    100040: Warbear
+    400000: back
+    400002: backRightFoot
+    400004: backRightKnee
+    400006: backRightThigh
+    400008: //RootNode
+    400010: face
+    400012: frontRight Thigh
+    400014: frontRightFoot
+    400016: frontRightKnee
+    400018: leftBackFoot
+    400020: leftBackKnee
+    400022: leftBackThigh
+    400024: leftFrontFoot
+    400026: leftFrontKnee
+    400028: leftFrontThigh
+    400030: lowerJaw
+    400032: neck
+    400034: stomach
+    400036: tail
+    400038: upperJaw
+    400040: Warbear
+    4300000: Warbear
+    7400000: run
+    7400002: lookLeftTransition
+    7400004: lookRightPause
+    7400006: Animation0
+    7400008: lookLeftPause
+    7400010: lookRightTransition
+    9500000: //RootNode
+    13700000: Warbear
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: run
+      takeName: Animation
+      firstFrame: 90
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: stomach
+        weight: 1
+      - path: stomach/back
+        weight: 1
+      - path: stomach/back/tail
+        weight: 1
+      - path: stomach/backRightThigh
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee/backRightFoot
+        weight: 1
+      - path: stomach/frontRight Thigh
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee/frontRightFoot
+        weight: 1
+      - path: stomach/leftBackThigh
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee/leftBackFoot
+        weight: 1
+      - path: stomach/leftFrontThigh
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee/leftFrontFoot
+        weight: 1
+      - path: stomach/neck
+        weight: 1
+      - path: stomach/neck/face
+        weight: 1
+      - path: stomach/neck/face/lowerJaw
+        weight: 1
+      - path: stomach/neck/face/upperJaw
+        weight: 1
+      - path: Warbear
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: lookLeftPause
+      takeName: Animation
+      firstFrame: 1
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: stomach
+        weight: 1
+      - path: stomach/back
+        weight: 1
+      - path: stomach/back/tail
+        weight: 1
+      - path: stomach/backRightThigh
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee/backRightFoot
+        weight: 1
+      - path: stomach/frontRight Thigh
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee/frontRightFoot
+        weight: 1
+      - path: stomach/leftBackThigh
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee/leftBackFoot
+        weight: 1
+      - path: stomach/leftFrontThigh
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee/leftFrontFoot
+        weight: 1
+      - path: stomach/neck
+        weight: 1
+      - path: stomach/neck/face
+        weight: 1
+      - path: stomach/neck/face/lowerJaw
+        weight: 1
+      - path: stomach/neck/face/upperJaw
+        weight: 1
+      - path: Warbear
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: lookRightPause
+      takeName: Animation
+      firstFrame: 40
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: stomach
+        weight: 1
+      - path: stomach/back
+        weight: 1
+      - path: stomach/back/tail
+        weight: 1
+      - path: stomach/backRightThigh
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee/backRightFoot
+        weight: 1
+      - path: stomach/frontRight Thigh
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee/frontRightFoot
+        weight: 1
+      - path: stomach/leftBackThigh
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee/leftBackFoot
+        weight: 1
+      - path: stomach/leftFrontThigh
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee/leftFrontFoot
+        weight: 1
+      - path: stomach/neck
+        weight: 1
+      - path: stomach/neck/face
+        weight: 1
+      - path: stomach/neck/face/lowerJaw
+        weight: 1
+      - path: stomach/neck/face/upperJaw
+        weight: 1
+      - path: Warbear
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: lookLeftTransition
+      takeName: Animation
+      firstFrame: 20
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: stomach
+        weight: 1
+      - path: stomach/back
+        weight: 1
+      - path: stomach/back/tail
+        weight: 1
+      - path: stomach/backRightThigh
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee/backRightFoot
+        weight: 1
+      - path: stomach/frontRight Thigh
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee/frontRightFoot
+        weight: 1
+      - path: stomach/leftBackThigh
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee/leftBackFoot
+        weight: 1
+      - path: stomach/leftFrontThigh
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee/leftFrontFoot
+        weight: 1
+      - path: stomach/neck
+        weight: 1
+      - path: stomach/neck/face
+        weight: 1
+      - path: stomach/neck/face/lowerJaw
+        weight: 1
+      - path: stomach/neck/face/upperJaw
+        weight: 1
+      - path: Warbear
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    - serializedVersion: 16
+      name: lookRightTransition
+      takeName: Animation
+      firstFrame: 60
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: stomach
+        weight: 1
+      - path: stomach/back
+        weight: 1
+      - path: stomach/back/tail
+        weight: 1
+      - path: stomach/backRightThigh
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee
+        weight: 1
+      - path: stomach/backRightThigh/backRightKnee/backRightFoot
+        weight: 1
+      - path: stomach/frontRight Thigh
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee
+        weight: 1
+      - path: stomach/frontRight Thigh/frontRightKnee/frontRightFoot
+        weight: 1
+      - path: stomach/leftBackThigh
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee
+        weight: 1
+      - path: stomach/leftBackThigh/leftBackKnee/leftBackFoot
+        weight: 1
+      - path: stomach/leftFrontThigh
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee
+        weight: 1
+      - path: stomach/leftFrontThigh/leftFrontKnee/leftFrontFoot
+        weight: 1
+      - path: stomach/neck
+        weight: 1
+      - path: stomach/neck/face
+        weight: 1
+      - path: stomach/neck/face/lowerJaw
+        weight: 1
+      - path: stomach/neck/face/upperJaw
+        weight: 1
+      - path: Warbear
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
