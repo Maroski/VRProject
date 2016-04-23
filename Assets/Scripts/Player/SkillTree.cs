@@ -8,6 +8,17 @@ namespace Pilgrim.Player
 {
     public class SkillTree
     {
+        static SkillTree instance = null;
+
+        static public SkillTree getInstance()
+        {
+            if (instance == null)
+            {
+                instance = new SkillTree();
+            }
+            return instance;
+        }
+
         private enum ESkillStatus
         {
             Learnable,
@@ -100,7 +111,7 @@ namespace Pilgrim.Player
         }
 
         private SkillNode[] m_SkillTree;
-        public SkillTree()
+        private SkillTree()
         {
             m_SkillTree = new SkillNode[Enum.GetNames(typeof(EAbility)).Length];
             for (int i = 0; i < m_SkillTree.Length; i++)

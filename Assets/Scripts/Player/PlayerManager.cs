@@ -62,7 +62,7 @@ namespace Pilgrim.Player
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_Head = transform.Find("Head");
-            m_SkillTree = new SkillTree();
+            m_SkillTree = SkillTree.getInstance();
             Reset();
         }
 
