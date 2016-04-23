@@ -57,7 +57,7 @@ public class rabbitController : MonoBehaviour {
     public void makeDecision()
     {
 
-        Debug.Log("MAKE DECISION END!");
+        //Debug.Log("MAKE DECISION END!");
 
         // Code to execute after the delay
         float rand = Random.value;
@@ -79,7 +79,7 @@ public class rabbitController : MonoBehaviour {
 
     void Jump()
     {
-        Debug.Log("JUMP!");
+       // Debug.Log("JUMP!");
         Vector2 rand2 = Random.insideUnitCircle * jumpRadius;
         preJumpPos = transform.position;
         postJumpPos = new Vector3(rand2.x + startPos.x, startPos.y, rand2.y + startPos.z);
@@ -96,6 +96,6 @@ public class rabbitController : MonoBehaviour {
     void EatGrass()
     {
         anim.SetTrigger(eat);
-        Debug.Log("GRASS EATING YO!");
+       // Debug.Log("GRASS EATING YO!");
     }
 }

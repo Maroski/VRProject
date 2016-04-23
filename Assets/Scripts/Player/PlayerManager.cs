@@ -9,6 +9,8 @@ namespace Pilgrim.Player
     [RequireComponent(typeof (CharacterController))]
     public class PlayerManager : MonoBehaviour
     {
+        private bool m_startJump;
+
         private Camera m_Camera;
         private bool m_MouseDown;
         private float m_HoldTime;
@@ -135,14 +137,22 @@ namespace Pilgrim.Player
 
         private void FixedUpdate()
         {
+            
+
             Vector3 displacement = Vector3.zero;
 
             // TODO: clean this up. I do not think we need to check isGrounded
             // Handle gravity
-            if (m_CharacterController.isGrounded)
+            if (m_CharacterController.isGrounded && !m_startJump)
             {
+                
                 m_IsJumping = false;
                 m_FallVelocity = Vector3.zero;
+            }
+            else if (m_startJump)
+            {
+                m_startJump = false;
+                m_IsJumping = true;
             }
 
             // Don't apply gravity if we are climbing
@@ -189,12 +199,15 @@ namespace Pilgrim.Player
 
         public void Jump(float launchAngle)
         {
+            Debug.Log("HELLO FROM JUMP!");
             if (!HasSkill(EAbility.Jump)) return;
-            m_IsJumping = true;
+            m_startJump = true;
             m_FallVelocity = GetMoveDir();
             m_FallVelocity.y = 0;
             m_FallVelocity = Vector3.RotateTowards(m_FallVelocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
             m_FallVelocity = m_FallVelocity.normalized * m_JumpPower;
+            Debug.Log("HELLO LEAVING JUMP!");
+
         }
 
         private void OnControllerColliderHit (ControllerColliderHit hit)
