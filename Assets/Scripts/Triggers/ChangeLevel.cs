@@ -24,7 +24,7 @@ public class ChangeLevel : MonoBehaviour {
             players = GameObject.FindGameObjectsWithTag("Player");
             GameObject player = players[0];
             PlayerManager pm = player.GetComponent<PlayerManager>();
-            if (pm == nul)
+            if (pm == null)
             {
                 Debug.Log("No player in scene");
                 return;
