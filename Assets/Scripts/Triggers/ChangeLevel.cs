@@ -17,27 +17,10 @@ public class ChangeLevel : MonoBehaviour {
     {
         SceneManager.LoadScene(m_LevelID);
 
+        // Request the player manager loads a different spawn point than default
         if (m_SpawnerName != "")
         {
-            // There should only be one player
-            GameObject[] players;
-            players = GameObject.FindGameObjectsWithTag("Player");
-            GameObject player = players[0];
-            PlayerManager pm = player.GetComponent<PlayerManager>();
-            if (pm == null)
-            {
-                Debug.Log("No player in scene");
-                return;
-            }
-
-            GameObject startingLocation = GameObject.Find(m_SpawnerName);
-            if (startingLocation == null)
-            {
-                Debug.Log("Specified location not found");
-                return;
-            }
-            pm.SetCheckpoint(startingLocation.transform);
-
+            PlayerManager.StartPointName = m_SpawnerName;
         }
     }
 }

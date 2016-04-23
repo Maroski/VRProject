@@ -9,6 +9,7 @@ namespace Pilgrim.Player
     [RequireComponent(typeof (CharacterController))]
     public class PlayerManager : MonoBehaviour
     {
+        public static string StartPointName;
         private Camera m_Camera;
         private bool m_MouseDown;
         private float m_HoldTime;
@@ -59,6 +60,18 @@ namespace Pilgrim.Player
 
         private void Start()
         {
+            if (PlayerManager.StartPointName != "")
+            {
+                GameObject startingLocation = GameObject.Find(PlayerManager.StartPointName);
+                if (startingLocation != null)
+                {
+                    SetCheckpoint(startingLocation.transform);
+                }
+                else
+                {
+                    Debug.Log("Specified location not found");
+                }
+            }
             m_CharacterController = GetComponent<CharacterController>();
             m_Camera = Camera.main;
             m_Head = transform.Find("Head");
