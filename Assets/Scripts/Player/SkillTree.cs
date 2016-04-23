@@ -148,6 +148,7 @@ namespace Pilgrim.Player
                 case ESkillStatus.Learnable:
                     GuiOutput.Log(String.Format("{0} Acquired!", skill));
                     newSkill.Acquire();
+                    Narrator.OnSkillLearned(skill);
                     break;
                 case ESkillStatus.MissingPrereq:
                     GuiOutput.Log("MISSING PREREQ");
