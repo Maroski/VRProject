@@ -35,10 +35,10 @@ public class bearController : MonoBehaviour {
             float distCovered = (Time.time - startTime) * speed;
             float fracJourney = distCovered / journeyLength;
             transform.position = Vector3.Lerp(startPosition, dest, fracJourney);
-           if (fracJourney > 0.95)
+           if (fracJourney > 0.8)
             {
                 //bear dissapears
-                Destroy(this);
+                Destroy(gameObject);
 
             }
         }
