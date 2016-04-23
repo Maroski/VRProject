@@ -11,7 +11,7 @@ public class bearController : MonoBehaviour {
 
     //Draws straight path to travel point and runs there
     public GameObject travelPoint;
-    public float speed = 1.0F;
+    public float speed = 10.0F;
 
     private Vector3 startPosition;
     private Vector3 dest;
@@ -41,10 +41,17 @@ public class bearController : MonoBehaviour {
 
     public void startRunning()
     {
-        startTime = Time.time;
         anim.SetBool(run, true);
+        Invoke("runNow", 1.0f);
+    }
+
+    private void runNow()
+    {
+        startTime = Time.time;
+
         isRunning = true;
     }
+
     public void startLookingRight()
     {
         anim.SetTrigger(lookright);
