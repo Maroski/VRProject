@@ -12,7 +12,7 @@ namespace Pilgrim.Interaction
     {
         [SerializeField] private string m_Message;
 
-        override public void Start()
+        override protected void Start()
         {
             m_Prereqs = new List<EAbility>();
             m_Prereqs.Add(EAbility.Read);
