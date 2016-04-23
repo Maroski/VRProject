@@ -216,7 +216,7 @@ namespace Pilgrim.Player
 
         public void Move(Vector3 displacement)
         {
-            if (!m_IsJumping && HasSkill(EAbility.Walk))
+            if (!m_IsJumping || HasSkill(EAbility.Walk))
             {
                 m_DesiredDisplacement += displacement.normalized;
             }
