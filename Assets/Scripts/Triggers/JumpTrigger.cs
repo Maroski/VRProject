@@ -2,6 +2,7 @@
 using System.Collections;
 using Pilgrim.Player;
 using Pilgrim.Controller;
+using Pilgrim.EnumTypes;
 
 namespace Pilgrim.Trigger
 {
@@ -12,7 +13,8 @@ namespace Pilgrim.Trigger
             PlayerManager pm = col.gameObject.GetComponent<PlayerManager>();
             if (pm != null)
             {
-                pm.ChangeContext(new JumpController(pm, m_LaunchAngle));
+                if (pm.HasSkill(EAbility.Jump))
+                    pm.ChangeContext(new JumpController(pm, m_LaunchAngle));
             }
 
         }

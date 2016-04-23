@@ -38,6 +38,7 @@ namespace Pilgrim.Player
 
         public float m_ClickSensitivity = 0.2f;
         private bool m_IsJumping;
+        private bool m_StartJump;
         private Transform m_Head;
 
         public void Reset()
@@ -137,10 +138,15 @@ namespace Pilgrim.Player
 
             // TODO: clean this up. I do not think we need to check isGrounded
             // Handle gravity
-            if (m_CharacterController.isGrounded)
+            if (m_CharacterController.isGrounded & !m_StartJump)
             {
                 m_IsJumping = false;
                 m_FallVelocity = Vector3.zero;
+            }
+            else if (m_StartJump)
+            {
+                m_StartJump = false;
+                m_IsJumping = true;
             }
 
             // Don't apply gravity if we are climbing
@@ -187,8 +193,8 @@ namespace Pilgrim.Player
 
         public void Jump(float launchAngle)
         {
-            if (!HasSkill(EAbility.Jump)) return;
-            m_IsJumping = true;
+            if (!HasSkill(EAbility.Jump) || m_IsJumping) return;
+            m_StartJump = true;
             m_FallVelocity = GetMoveDir();
             m_FallVelocity.y = 0;
             m_FallVelocity = Vector3.RotateTowards(m_FallVelocity, Vector3.up, launchAngle * (float) Math.PI / 180f, 0f);
