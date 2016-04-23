@@ -37,6 +37,8 @@ public class bearController : MonoBehaviour {
             transform.position = Vector3.Lerp(startPosition, dest, fracJourney);
            if (fracJourney > 0.8)
             {
+                AudioClip deadBear = Resources.Load<AudioClip>("bear_dead");
+                Narrator.PlaySound(deadBear);
                 //bear dissapears
                 Destroy(gameObject);
 

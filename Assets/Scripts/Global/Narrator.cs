@@ -8,12 +8,12 @@ public class Narrator : MonoBehaviour {
     private AudioSource m_source;
     static private Queue<AudioClip> m_audioQueue = new Queue<AudioClip>();
 
-    public static AudioClip m_jumpClip;
-    public static AudioClip m_digClip;
-    public static AudioClip m_climbClip;
-    public static AudioClip m_fireballClip;
-    public static AudioClip m_readClip;
-    public static AudioClip m_walkClip;
+    public static AudioClip m_jumpClip = Resources.Load<AudioClip>("jump_ability");
+    public static AudioClip m_digClip = Resources.Load<AudioClip>("dig_ability");
+    public static AudioClip m_climbClip = Resources.Load<AudioClip>("climb_ability");
+    public static AudioClip m_fireballClip = Resources.Load<AudioClip>("generic_ability");
+    public static AudioClip m_readClip = Resources.Load<AudioClip>("generic_ability");
+    public static AudioClip m_walkClip = Resources.Load<AudioClip>("walk_ability");
 
     // Use this for initialization
     void Start () {
@@ -33,6 +33,7 @@ public class Narrator : MonoBehaviour {
 
     public static void OnSkillLearned(EAbility skill)
     {
+        Debug.Log("PLAYING SOUND ON SKILL LEARNED");
         switch (skill)
         {
             case EAbility.Jump:
@@ -61,6 +62,7 @@ public class Narrator : MonoBehaviour {
 
     public static void PlaySound(AudioClip clip)
     {
+        Debug.Log("PLAYING SOUND");
         m_audioQueue.Enqueue(clip);
     }
 }
